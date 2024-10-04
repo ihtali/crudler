@@ -4,6 +4,7 @@ const ModuleItem = ({module,onSelect}) => {
 // Initialisations ---------------------
 // State -------------------------------
 // Handlers ----------------------------
+const handleSelect=() => onSelect(module);
 // View --------------------------------
 return (
     <Pressable  onPress={() => onSelect(module)}>
