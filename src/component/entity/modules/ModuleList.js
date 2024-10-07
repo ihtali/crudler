@@ -1,5 +1,5 @@
 import { ScrollView, StyleSheet} from 'react-native';
-import ModuleItem from './moduleitem';
+import ModuleItem from '../modules/ModuleItem'
 
 const ModuleList = ({modules,onSelect}) => {
 // Initialisations ---------------------
