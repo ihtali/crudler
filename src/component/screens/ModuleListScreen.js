@@ -1,21 +1,46 @@
 import { useState } from 'react';
-import { StyleSheet } from 'react-native';
+import { LogBox,StyleSheet } from 'react-native';
 import Screen from '../layout/Screen';
 import initialModules from '../data/modules.js'
 
 import ModuleList from '../entity/modules/ModuleList.js';
+import Icons from '../UI/icons.js';
+import {Button,ButtonTray} from '../UI/Button.js'
 
 const ModuleListScreen = ({navigation}) => {
 
+  LogBox.ignoreLogs(['Non=serializable values where found in the nagvigation state']);
+
+
 const [modules , setModules]= useState(initialModules);
+//handler
 
-const handleSelect = (module) => navigation.navigate('ModuleViewScreen',{module});
-const handleDelete= (module) => 
+const handleDelete= (module) =>  {
    setModules(modules.filter((item) =>  item.ModuleID !==module.ModuleID));
+};
 
+const handleAdd=(module) => setModules([...modules,module]);
+
+const onDelete = (module) => {
+  handleDelete(module);
+  navigation.goBack();
+}
+
+const onAdd = (module) => {
+  handleAdd(module);
+  navigation.goBack();
+}
+
+
+const gotoViewSCcreen = (module) => navigation.navigate('ModuleViewScreen',{module,onDelete});
+
+const gotoAddSCcreen = () => navigation.navigate('ModuleAddScreen',{onAdd});
   return (
     <Screen>
-      <ModuleList modules={modules} onSelect={handleSelect}/>
+      <ButtonTray>
+      <Button label="Add" icon={<Icons.Add />}onClick={gotoAddSCcreen}/>
+      </ButtonTray>
+      <ModuleList modules={modules} onSelect={gotoViewSCcreen}/>
     </Screen> 
   );
 };
