@@ -4,12 +4,12 @@ import ModuleView from '../entity/modules/ModuleView';
 
 const ModuleViewScreen = ({navigate,route}) => {
 /////initialization
-const { module } =route.params;
+const { module ,onDelete} =route.params;
 
 
   return (
     <Screen>
-   <ModuleView module={module}/>
+   <ModuleView module={module} onDelete={onDelete}/>
     </Screen>
   );
 };
