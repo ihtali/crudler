@@ -57,7 +57,7 @@ const ModuleForm = ({ onSubmit, onCancel }) => {
             />
 
             <Form.InputSelect
-                label="Module Levlel"
+                label="Module Level"
                 prompt="Select module level..."
                 options={levels}
                 value={module.ModuleLevel}
