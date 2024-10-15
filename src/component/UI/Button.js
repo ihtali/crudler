@@ -1,4 +1,4 @@
-import { Pressable,  StyleSheet, Text, View } from 'react-native';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
 
 
 export const Button = ({label,icon,onClick ,stylabel,styleButton}) => {
@@ -14,7 +14,7 @@ return (
 );
 };
 
-export const ButtonTray = ({children,}) => {
+export const ButtonTray = ({children}) => {
     // Initialisations ---------------------
     // State -------------------------------
     // Handlers ----------------------------
