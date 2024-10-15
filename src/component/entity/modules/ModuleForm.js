@@ -3,6 +3,7 @@ import { TextInput, StyleSheet, Text, View } from 'react-native';
 import Icons from '../../UI/Icons.js';
 import Form from '../../UI/Form.js';
 
+
 const defaultModule = {
     ModuleID: null,
     ModuleName: null,
@@ -57,7 +58,7 @@ const ModuleForm = ({ onSubmit, onCancel }) => {
             />
 
             <Form.InputSelect
-                label="Module Levlel"
+                label="Module Level"
                 prompt="Select module level..."
                 options={levels}
                 value={module.ModuleLevel}
