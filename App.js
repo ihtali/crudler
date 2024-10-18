@@ -20,12 +20,12 @@ export const App = () => {
         <Stack.Screen
           name='ModuleListScreen'
           component={ModuleListScreen}
-          options={{ title: 'List modules' }}
+          options={{ title: ' List modules' }}
         />
         <Stack.Screen
           name='ModuleAddScreen'
           component={ModuleAddScreen}
-          options={{ title: 'Add modules' }}
+          options={{ title: ' Add modules' }}
         />
         <Stack.Screen
           name='ModuleViewScreen'

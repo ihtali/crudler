@@ -4,13 +4,12 @@ const ModuleItem = ({module,onSelect}) => {
 // Initialisations ---------------------
 // State -------------------------------
 // Handlers ----------------------------
-const handleSelect=() => onSelect(module);
 // View --------------------------------
 return (
     <Pressable  onPress={() => onSelect(module)}>
             <View  style={styles.item}>
-              <Text style={styles.type}>
-                {module.ModuleCode}{module.ModuleName}
+              <Text style={styles.text}>
+                {module.ModuleCode}{' '}{module.ModuleName}
                 </Text>
             </View>
             </Pressable>
@@ -20,6 +19,7 @@ const styles = StyleSheet.create({
     item: {
         paddingVertical: 35,
         borderTopWidth:6,
+        
         borderColor: 'lightgrey',
       },
       text: {

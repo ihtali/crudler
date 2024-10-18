@@ -11,10 +11,10 @@ const defaultModule = {
     ModuleLevel: null,
     ModuleLeaderID: null,
     ModuleLeaderName: null,
-    ModuleImage: null,
+    ModuleImageURL: null,
 };
 
-const ModuleForm = ({ onSubmit, onCancel }) => {
+const ModuleForm = ({ originalModule,onSubmit, onCancel }) => {
     // Initialisations ---------------------
     defaultModule.ModuleID = Math.floor(100000 + Math.random() * 900000);
     defaultModule.ModuleImage = 'https://images.freeimages.com/images/small-previews/9b8/electronic-components-2-1242738.jpg';
@@ -28,15 +28,15 @@ const ModuleForm = ({ onSubmit, onCancel }) => {
     ];
 
     // State -------------------------------
-    const [module, setModule] = useState(defaultModule);
+    const [module, setModule] = useState(originalModule || defaultModule);
 
     // Handlers ----------------------------
     const handleChange = (field, value) => setModule({ ...module, [field]: value });
     const handleSubmit = () => onSubmit(module);
 
     // View --------------------------------
-    const submitLabel = 'Add';
-    const submitIcon = <Icons.Add />;
+    const submitLabel = originalModule ? 'Modify' : 'Add';
+    const submitIcon =  originalModule ?  <Icons.Edit/> : <Icons.Add /> ;
 
     return (
         <Form
@@ -73,8 +73,8 @@ const ModuleForm = ({ onSubmit, onCancel }) => {
 
             <Form.InputText
                 label="Module Image URL"
-                value={module.ModuleImage}
-                onChange={(value) => handleChange('ModuleImage', value)}
+                value={module.ModuleImageURL}
+                onChange={(value) => handleChange('ModuleImageURL', value)}
             />
         </Form>
     );
