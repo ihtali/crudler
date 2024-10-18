@@ -1,5 +1,4 @@
 import { KeyboardAvoidingView,ScrollView,TextInput, StyleSheet, Text, View } from 'react-native';
-///import { Picker } from '@react-native-picker/picker';
 import RNPickerSelect from "react-native-picker-select";
 
 
@@ -100,7 +99,8 @@ const styles = StyleSheet.create({
         marginBottom: 10,
       },
       placeholder: {
-        color: "gray",
+        color: 'gray',
+        textAlign:'center',
       },
     formContainer:{
         gap:10,
