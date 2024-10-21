@@ -1,23 +1,26 @@
 import { useState } from 'react';
-import { TextInput, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet } from 'react-native';
 import Icons from '../../UI/Icons.js';
 import Form from '../../UI/Form.js';
-
+import useLoad from '../../API/useLoad.js';
 
 const defaultModule = {
     ModuleID: null,
     ModuleName: null,
     ModuleCode: null,
     ModuleLevel: null,
+    ModuleYearID: null,
     ModuleLeaderID: null,
-    ModuleLeaderName: null,
     ModuleImageURL: null,
 };
 
 const ModuleForm = ({ originalModule,onSubmit, onCancel }) => {
     // Initialisations ---------------------
     defaultModule.ModuleID = Math.floor(100000 + Math.random() * 900000);
-    defaultModule.ModuleImage = 'https://images.freeimages.com/images/small-previews/9b8/electronic-components-2-1242738.jpg';
+    defaultModule.ModuleImageURL = 'https://images.freeimages.com/images/small-previews/9b8/electronic-components-2-1242738.jpg';
+
+    const yearsEndpoint ='https://softwarehub.uk/unibase/api/years';
+    const staffEndpoint ='https://softwarehub.uk/unibase/api/users/staff';
 
     const levels = [
         { value: 3, label: '3 (Foundation)' },
@@ -29,6 +32,11 @@ const ModuleForm = ({ originalModule,onSubmit, onCancel }) => {
 
     // State -------------------------------
     const [module, setModule] = useState(originalModule || defaultModule);
+    const [years , isYearLoading ] = useLoad(yearsEndpoint);
+
+    const [leaders , isLeadersLoading ] = useLoad(staffEndpoint);
+
+
 
     // Handlers ----------------------------
     const handleChange = (field, value) => setModule({ ...module, [field]: value });
@@ -37,6 +45,10 @@ const ModuleForm = ({ originalModule,onSubmit, onCancel }) => {
     // View --------------------------------
     const submitLabel = originalModule ? 'Modify' : 'Add';
     const submitIcon =  originalModule ?  <Icons.Edit/> : <Icons.Add /> ;
+
+    const cohorts = years.map((year) =>({ value: year.YearID, label: year.YearName}));
+
+    const staff = leaders.map((leader) => ({value:leader.UserID, label:`${leader.UserFirstname} ${leader.UserLastname}` }));
 
     return (
         <Form
@@ -59,17 +71,31 @@ const ModuleForm = ({ originalModule,onSubmit, onCancel }) => {
 
             <Form.InputSelect
                 label="Module Level"
-                prompt="Select module level..."
-                options={levels}
                 value={module.ModuleLevel}
                 onChange={(value) => handleChange('ModuleLevel', value)}
+                prompt="Select module level..."
+                options={levels}
             />
-
-            <Form.InputText
+           
+           
+            <Form.InputSelect
+                label="Module cohort"
+                value={module.ModuleYearID}
+                onChange={(value) => handleChange('ModuleYearID', value)}
+                prompt="Select module cohort..."
+                options={cohorts}
+                isLoading={isYearLoading}
+            />
+            
+            <Form.InputSelect
                 label="Module Leader"
-                value={module.ModuleLeaderName}
-                onChange={(value) => handleChange('ModuleLeaderName', value)}
+                value={module.ModuleLeaderID}
+                onChange={(value) => handleChange('ModuleLeaderID', value)}
+                prompt="Select module leader..."
+                options={staff}
+                isLoading={isLeadersLoading}
             />
+           
 
             <Form.InputText
                 label="Module Image URL"
