@@ -1,11 +1,4 @@
-import {
-  ActivityIndicator,
-  Alert,
-  LogBox,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native";
+import {ActivityIndicator,Alert,LogBox,StyleSheet,Text,View,} from "react-native";
 import Screen from "../layout/Screen";
 import useLoad from "../API/useLoad.js";
 import API from "../API/API.js";
@@ -60,7 +53,6 @@ export const ModuleListScreen = ({ navigation }) => {
         <Button
           icon={<Icons.Add />}
           label="Add"
-          styleButton={{ backgroundColor: "grey" }}
           onClick={goToAddScreen}
         />
       </ButtonTray>
