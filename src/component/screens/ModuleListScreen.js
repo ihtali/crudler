@@ -47,20 +47,24 @@ const onModify = async(module) => {
 const gotoViewSCcreen = (module) => navigation.navigate('ModuleViewScreen',{module,onDelete,onModify});
 
 const gotoAddSCcreen = () => navigation.navigate('ModuleAddScreen',{onAdd});
-
+///////VIEW
   return (
     <Screen>
+      <View style={styles.container}>
       <ButtonTray>
       <Button label="Add Modules" icon={<Icons.Add />}onClick={gotoAddSCcreen}/>
       </ButtonTray>
-      { isLoading &&(
-        <View style={styles.spinner}>
-         <Text>Retrieving records from {modulesEndpoint}...</Text>
+      {isLoading &&(
+        <View 
+        style={styles.spinner}>
+         <Text style={styles.loading}>Loading...</Text>
          <ActivityIndicator size='large' />
         </View>
       )      }
       <ModuleList modules={modules} onSelect={gotoViewSCcreen}/>
-    </Screen> 
+      </View>
+      </Screen> 
+    
   );
 };
 
