@@ -14,7 +14,7 @@ return(
     onPress={handlePress}
      style ={ ({pressed}) => [style,pressed && pressedStyle]}
      >
-    {children}
+        {children}
     </Pressable>
 );
 };
