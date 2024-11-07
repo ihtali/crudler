@@ -1,4 +1,5 @@
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet,Text, View } from 'react-native';
+import Selector from './Selector';
 
 
 export const Button = ({label,icon,onClick ,stylabel,styleButton}) => {
@@ -7,10 +8,14 @@ export const Button = ({label,icon,onClick ,stylabel,styleButton}) => {
 // Handlers ----------------------------
 // View --------------------------------
 return (
-    <Pressable onPress={onClick} style={[styles.button,styleButton]}>
+    <Selector 
+    onPress={onClick}
+     style ={[styles.button,styleButton]}
+     pressedStyle=  {styles.pressedButton}
+     >
         { icon ? icon : null}
    <Text style={[styles.label,stylabel]}>{label}</Text>
-    </Pressable>
+    </Selector>
 );
 };
 
@@ -48,5 +53,9 @@ const styles = StyleSheet.create({
     },
     label:{
         fontSize: 16,
+    },
+    pressedButton:{
+        backgroundColor: 'azure',
+        elevation: 50,
     },
 });
