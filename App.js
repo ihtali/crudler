@@ -5,6 +5,7 @@ import ModuleListScreen from './src/component/screens/ModuleListScreen';
 import ModuleAddScreen from './src/component/screens/ModuleAddScreen';
 import ModuleModifyScreen from './src/component/screens/ModuleModifyScreen';
 import ModuleViewScreen from './src/component/screens/ModuleViewScreen';
+import UserListScreen from './src/component/screens/UserListSreen';
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -44,6 +45,11 @@ const ModuleStackNavigator = () => {
 const UserStackNavigator = () => {
   return (
     <Stack.Navigator>
+      <Stack.Screen
+        name='UserListScreen'
+        component={UserListScreen}
+        options={{ title: 'List User' }}
+      />
     </Stack.Navigator>
   );
 };
