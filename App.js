@@ -42,14 +42,17 @@ const ModuleStackNavigator = () => {
     </Stack.Navigator>
   );
 };
+
 const UserStackNavigator = () => {
   return (
     <Stack.Navigator>
+      
       <Stack.Screen
         name='UserListScreen'
         component={UserListScreen}
         options={{ title: 'List User' }}
       />
+
     </Stack.Navigator>
   );
 };
