@@ -1,5 +1,7 @@
 import { StyleSheet, Text, View } from 'react-native';
 import Screen from '../layout/Screen';
+import UserView from '../entity/users/UserView';
+import UserForm from '../entity/users/UserForm';
 
 
 
@@ -7,13 +9,13 @@ import Screen from '../layout/Screen';
 const UserModifyScreen = ({navigation,route}) => {
 ///intialisation
 
-const {module,onModify} = route.params;
+const {user,onModify} = route.params;
 
   ////handle
-const handleCancel = navigation.goBack;
-
+  const handleCancel = navigation.goBack;
   return (
     <Screen>
+      <UserForm originalUser={user} onSubmit={onModify} onCancel={handleCancel} />
     </Screen>
   );
 }
@@ -21,4 +23,3 @@ const handleCancel = navigation.goBack;
 const styles = StyleSheet.create({});
 
 export default UserModifyScreen;
- 
