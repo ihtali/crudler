@@ -2,12 +2,14 @@ import { StyleSheet} from "react-native";
 import Screen from "../layout/Screen";
 import UserView from "../entity/users/UserView";
 
-const UserViewScreen =({route}) => {
+const UserViewScreen =({navigation,route}) => {
 
-    const {user}= route.params;
+const {user,onDelete,onModify }= route.params;
+////handler
+const gotoUserScreen =() => navigation.navigate('UserModifyScreen',{user,onModify})
     return(
 <Screen>
-    <UserView user={user}/>
+    <UserView user={user} onDelete={onDelete} onModify={gotoUserScreen}/>
 </Screen>
     );
 };
