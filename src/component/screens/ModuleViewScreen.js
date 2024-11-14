@@ -8,7 +8,7 @@ const ModuleViewScreen = ({navigation,route}) => {
 const { module ,onDelete,onModify} =route.params;
 
 //handler
-const gotoModifyScreen = ( ) => navigation.navigate('ModuleModifyScreen',{module,onModify});
+const gotoModifyScreen = ( ) => navigation.navigate('ModuleModifyScreen',{module,onModify})
 
   return (
     <Screen>

@@ -6,7 +6,7 @@ const UserViewScreen =({navigation,route}) => {
 
 const {user,onDelete,onModify }= route.params;
 ////handler
-const gotoUserScreen =() => navigation.navigate('UserModifyScreen',{user,onModify})
+const gotoUserScreen =() => navigation.navigate('UserModifyScreen',{user,onModify});
     return(
 <Screen>
     <UserView user={user} onDelete={onDelete} onModify={gotoUserScreen}/>

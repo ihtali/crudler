@@ -2,7 +2,6 @@ import {ActivityIndicator,Alert,LogBox,StyleSheet,Text,View,} from "react-native
 import Screen from "../layout/Screen";
 import useLoad from "../API/useLoad.js";
 import API from "../API/API.js";
-
 import ModuleList from "../entity/modules/ModuleList.js";
 import Icons from "../UI/Icons.js";
 import { Button, ButtonTray } from "../UI/Button.js";
@@ -18,7 +17,7 @@ export const ModuleListScreen = ({ navigation }) => {
 
   //Handlers --------------------------------
   const onDelete = async (module) => {
-    const deleteEndpoint = `${modulesEndpoint}/${module.ModueID}`;
+    const deleteEndpoint = `${modulesEndpoint}/${module.ModuleID}`;
     const result = await API.delete(deleteEndpoint, module);
     if (result.isSuccess) {
       loadModules(modulesEndpoint);
@@ -33,8 +32,9 @@ export const ModuleListScreen = ({ navigation }) => {
       navigation.goBack();
     } else Alert.alert(result.message);
   };
+
   const onModify = async (module) => {
-    const putEndpoint = `${modulesEndpoint}/${module.ModueID}`;
+    const putEndpoint = `${modulesEndpoint}/${module.ModuleID}`;
     const result = await API.put(putEndpoint, module);
     if (result.isSuccess) {
       loadModules(modulesEndpoint);

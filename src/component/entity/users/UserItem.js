@@ -1,11 +1,11 @@
 import {Pressable, StyleSheet, Text, View } from 'react-native';
 
+
 const UserItem = ({user,onSelect}) => {
 // Initialisations ---------------------
 // State -------------------------------
 // Handlers ----------------------------
 // View --------------------------------
-
 return (
     <Pressable onPress={() => onSelect(user)}>
     <View style={styles.item}>
@@ -16,6 +16,7 @@ return (
      </Pressable>
 );
 };
+
 const styles = StyleSheet.create({
     item: {
         paddingVertical: 35,
