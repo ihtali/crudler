@@ -8,7 +8,6 @@ const UserView = ({user,onDelete,onModify}) => {
 // State -------------------------------
 // Handlers ----------------------------
 const handleDelete = () => onDelete(user);
-
 const requestDelete =() => 
     Alert.alert(
     'Delete warning',
@@ -20,20 +19,21 @@ const requestDelete =() =>
 return (
     <View style={styles.container}>
     <FullWidthImage source={{uri: user.UserImageURL}} style={styles.image}/>
-
     <View style={styles.infoTray}>
-<Text style={styles.boldText}>ID {user.UserID}</Text>
+    <Text style={styles.boldText}>{user.UserUsertypeName}</Text>
+    <Text style={styles.text}>Level {user.UserLevel}</Text> 
     <Text style={styles.text}>{user.UserFirstname} {user.UserLastname} </Text>
-    <Text style={styles.text}>Role {user.UserType}</Text>
-    <Text style={styles.text}>Email {user.UserEmail}</Text>
+    <Text style={styles.text}>Year {user.UserYearName}</Text>
+    <Text style={styles.text}>{user.UserEmail}</Text>
     </View>
-    <ButtonTray>
+     <ButtonTray>
          <Button icon={<Icons.Edit/>} label='Modify' onClick={onModify}/>
-         <Button icon={<Icons.Delete/>} label='Delete' onClick={requestDelete}  />
-        </ButtonTray>
+         <Button icon={<Icons.Delete/>} label='Delete' onClick={requestDelete}/>
+     </ButtonTray>
     </View>
 );
 };
+
 const styles = StyleSheet.create({
     container:{
         gap:15,

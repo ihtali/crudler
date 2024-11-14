@@ -4,6 +4,7 @@ import RNPickerSelect from "react-native-picker-select";
 
 import {Button,ButtonTray} from './Button.js';
 import Icons from './Icons.js';
+import { Switch } from 'react-native-gesture-handler';
 
 
 const Form = ({children,onSubmit,onCancel ,submitLabel,submitIcon}) => {
@@ -44,40 +45,49 @@ const InputText = ({label,value,onChange})  => {
     );
     };
 
-    const InputSelect = ({label ,prompt,options, value,onChange})  => {
-        // Initialisations ---------------------
-        // State -------------------------------
-        // Handlers ----------------------------
-        // View --------------------------------
-        return (
-       <View style={styles.item}> 
-         <Text style={styles.itemLabel}>{label}</Text>
-      
-      <RNPickerSelect
-        mode="dropdown"
-        selectedValue={value}
-        onValueChange={onChange}
-        placeholder={{ label: prompt, value: null, color: "whitesmoke" }}
-        items={options.map((option) => ({
-          label: option.label,
-          value: option.value,
-        }))}
-        style={{
-          inputIOS: styles.inputIOS,
-          inputAndroid: styles.inputAndroid,
-          placeholder: styles.placeholder,
-        }}
-        ></RNPickerSelect>
-    </View>
-  );
-  };
+    const InputSelect = ({ label, prompt, options, value, onChange }) => {
+      return (
+        <View style={styles.item}> 
+          <Text style={styles.itemLabel}>{label}</Text>
+          
+          <RNPickerSelect
+            mode="dropdown"
+            value={value}
+            onValueChange={onChange}
+            placeholder={{ label: prompt, value: null, color: "whitesmoke" }}
+            items={options.map((option) => ({
+              label: option.label,
+              value: option.value,
+            }))}
+            style={{
+              inputIOS: styles.inputIOS,
+              inputAndroid: styles.inputAndroid,
+              placeholder: styles.placeholder,
+            }}
+          />
+        </View>
+      );
+    };
+    
          
+  const InputCheck = ({ label,value,onChange}) => (
+    <View style={styles.item}>
+    <Text style={styles.itemLabel}>{label}</Text>
+    <Switch
+    value={value}
+    onValueChange={onChange}
+    trackColor={{false: "black", true: " black" }}
+    thumbColor={value ? "white " : "white " }
+    />
+
+    </View>
+  )
        
 
 // Compose Component
 Form.InputText= InputText;
 Form.InputSelect= InputSelect;
-
+Form.InputCheck= InputCheck;
 
 // Styles
 
