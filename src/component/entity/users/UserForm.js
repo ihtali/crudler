@@ -2,138 +2,142 @@ import { useState } from 'react';
 import { StyleSheet } from 'react-native';
 import Icons from '../../UI/Icons.js';
 import Form from '../../UI/Form.js';
+import useLoad from '../../API/useLoad.js'; 
 
 const defaultUser = {
-    UserID: null,
-    UserFirstname: null,
-    UserLastname: null,
-    UserEmail: null,
-    UserRegistered: false,
-    UserLevel: null,
-    UserUsertypeName: null,
-    UserYearName: null,
+  UserID: null,
+  UserFirstname: null,
+  UserLastname: null,
+  UserEmail: null,
+  UserRegistered: false,
+  UserLevel: null,
+  UserUsertypeID: null,
+  UserYearID: null,
+  UserImageURL:null,
 };
 
-const UserForm = ({ originalUser,onSubmit, onCancel }) => {
-    // Initialisations ---------------------
-    defaultUser.UserID = Math.floor(100000 + Math.random() * 900000);
-    defaultUser.UserImageURL = 'https://images.freeimages.com/images/small-previews/9b8/electronic-components-2-1242738.jpg';
+const UserForm = ({ originalUser, onSubmit, onCancel }) => {
+  // Initializations ---------------------
 
-        const yearsEndpoint ='https://softwarehub.uk/unibase/api/years';
-    const staffEndpoint ='https://softwarehub.uk/unibase/api/usertype';
+  defaultUser.UserImageURL = "https://images.freeimages.com/images/small-previews/cf5/cellphone-1313194.jpg";
 
+  const yearsEndpoint = 'https://softwarehub.uk/unibase/api/years';
+  const userTypesEndpoint = 'https://softwarehub.uk/unibase/api/usertypes';
 
-    const levels = [
-        { value: 3, label: ' Staff ' },
-        { value: 4, label: ' Student ' },
-    ];
+  // State -------------------------------
+  const [user, setUser] = useState(originalUser || defaultUser);
+  const [years, isYearLoading] = useLoad(yearsEndpoint);
+  const [userTypes, isUserTypesLoading] = useLoad(userTypesEndpoint);
 
-    const level = [
-        { value: 3, label: '3 ' },
-        { value: 4, label: '4 ' },
-        { value: 5, label: '5 ' },
-        { value: 6, label: '6 ' },
-        { value: 7, label: '7 ' },
-    ];
-    
+  // Handlers ----------------------------
+  const handleChange = (field, value) => setUser({ ...user, [field]: value });
+  const handleSubmit = () => onSubmit(user);
 
-    // State -------------------------------
-    ////const yearsEndpoint ='https://softwarehub.uk/unibase/api/years';
-    ///const staffEndpoint ='https://softwarehub.uk/unibase/api/usertype';
-    const [user, setUser] = useState(originalUser || defaultUser);
-    /*const [years , isYearLoading ] = useLoad(yearsEndpoint);
+  // Dropdown Options --------------------
+  const cohorts = years.map((year) => ({
+    value: year.YearID,
+    label: year.YearName,
+  }));
 
-    const [leaders , isLeadersLoading ] = useLoad(staffEndpoint);*/
+const UserLEVEL = [
+    { value: 0, label:'None'},
+    { value: 3, label: '3' },
+    { value: 4, label: '4' },
+    { value: 5, label: '5' },
+    { value: 6, label: '6' },
+    { value: 7, label: '7' },
+  ];
+  
+  const userTypeOptions = userTypes.map((type) => ({
+    value: type.UsertypeID,
+    label: type.UsertypeName,
+  }));
 
+  // View --------------------------------
+  const submitLabel = originalUser ? 'Modify' : 'Add';
+  const submitIcon = originalUser ? <Icons.Edit /> : <Icons.Add />;
 
+  return (
+    <Form
+      onSubmit={handleSubmit}
+      onCancel={onCancel}
+      submitIcon={submitIcon}
+      submitLabel={submitLabel}
+    >
+      <Form.InputText
+        label="User First Name"
+        value={user.UserFirstname}
+        onChange={(value) => handleChange('UserFirstname', value)}
+      />
 
-    // Handlers ----------------------------
-    const handleChange = (field, value) => setUser({ ...user, [field]: value });
-    const handleSubmit = () => onSubmit(user);
+      <Form.InputText
+        label="User Last Name"
+        value={user.UserLastname}
+        onChange={(value) => handleChange('UserLastname', value)}
+      />
 
-    // View --------------------------------
-    const submitLabel = originalUser ? 'Modify' : 'Add';
-    const submitIcon =  originalUser ?  <Icons.Edit/> : <Icons.Add /> ;
+      <Form.InputText
+        label="User Email"
+        value={user.UserEmail}
+        onChange={(value) => handleChange('UserEmail', value)}
+      />
 
-   //// const cohorts = years.map((year) =>({ value: year.YearID, label: year.YearName}));
+      <Form.InputSelect
+        label="User Type"
+        value={user.UserUsertypeID}
+        onChange={(value) => handleChange('UserUsertypeID', value)}
+        prompt="Select user type..."
+        options={userTypeOptions}
+        isLoading={isUserTypesLoading}
+      />
 
-    return (
-        <Form
-            onSubmit={handleSubmit}
-            onCancel={onCancel}
-            submitIcon={submitIcon}
-            submitLabel={submitLabel}
-        >
+      <Form.InputSelect
+        label="User Year (Cohort)"
+        value={user.UserYearID}
+        onChange={(value) => handleChange('UserYearID', value)}
+        prompt="Select user year..."
+        options={cohorts}
+        isLoading={isYearLoading}
+      />
 
-            <Form.InputText
-                label="User first Name"
-                value={user.UserFirstname}
-                onChange={(value) => handleChange('UserFirstname', value)}
-            />
+      <Form.InputSelect
+        label="User Level"
+        value={user.UserLevel}
+        onChange={(value) => handleChange('UserLevel', value)}
+        prompt="Select user level..."
+        options={UserLEVEL}
+      />
 
-            <Form.InputText
-                label="User last Name"
-                value={user.UserLastname}
-                onChange={(value) => handleChange('UserLastname', value)}
-            />
+      <Form.InputCheck
+        label="User Registered"
+        value={user.UserRegistered}
+        onChange={(value) => handleChange('UserRegistered', value)}
+      />
 
-             <Form.InputSelect
-                label="User Level"
-                value={user.UserLevel}
-                onChange={(value) => handleChange('UserLevel', value)}
-                prompt="Select user level..."
-                options={level}
-            />
-
-
-           <Form.InputText
-                label="User Email"
-                value={user.UserEmail}
-                onChange={(value) => handleChange('UserEmail', value)}
-            /> 
-
-           
-            <Form.InputText
-                label="User Type"
-                value={user.UserUsertypeName}
-                onChange={(value) => handleChange('UserUsertypeName', value)}
-                prompt="Select user type..."
-                options={levels}
-            />
-
-            <Form.InputCheck
-                label="User Registered"
-                value={user.UserRegistered}
-                onChange={(value) => handleChange('UserRegistered', value)}
-            />
-
-           
-
-            <Form.InputText
-                label="User Image URL"
-                value={user.UserImageURL}
-                onChange={(value) => handleChange('UserImageURL', value)}
-            />
-
-        </Form>
-    );
+      <Form.InputText
+        label="User Image URL"
+        value={user.UserImageURL}
+        onChange={(value) => handleChange('UserImageURL', value)}
+      />
+    </Form>
+  );
 };
 
 const styles = StyleSheet.create({
-    itemLabel: {
-        color: 'grey',
-        fontSize: 16,
-        marginBottom: 5,
-    },
-    itemTextInput: {
-        height: 50,
-        paddingLeft: 10,
-        fontSize: 16,
-        backgroundColor: 'white',
-        borderRadius: 7,
-        borderWidth: 1,
-        borderColor: 'lightgrey',
-    },
+  itemLabel: {
+    color: 'grey',
+    fontSize: 16,
+    marginBottom: 5,
+  },
+  itemTextInput: {
+    height: 50,
+    paddingLeft: 10,
+    fontSize: 16,
+    backgroundColor: 'white',
+    borderRadius: 7,
+    borderWidth: 1,
+    borderColor: 'lightgrey',
+  },
 });
 
 export default UserForm;
