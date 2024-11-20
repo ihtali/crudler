@@ -1,5 +1,6 @@
 import { KeyboardAvoidingView,ScrollView,TextInput, StyleSheet, Text, View } from 'react-native';
-import RNPickerSelect from "react-native-picker-select";
+//import RNPickerSelect from "react-native-picker-select";
+import { SelectList } from "react-native-dropdown-select-list";
 
 
 import {Button,ButtonTray} from './Button.js';
@@ -46,28 +47,26 @@ const InputText = ({label,value,onChange})  => {
     };
 
     const InputSelect = ({ label, prompt, options, value, onChange }) => {
+      const selectListData = options.map((option) => ({
+        key: option.value,
+        value: option.label,
+      }));
+    
       return (
-        <View style={styles.item}> 
+        <View style={styles.item}>
           <Text style={styles.itemLabel}>{label}</Text>
-          
-          <RNPickerSelect
-            mode="dropdown"
-            value={value}
-            onValueChange={onChange}
-            placeholder={{ label: prompt, value: null, color: "whitesmoke" }}
-            items={options.map((option) => ({
-              label: option.label,
-              value: option.value,
-            }))}
-            style={{
-              inputIOS: styles.inputIOS,
-              inputAndroid: styles.inputAndroid,
-              placeholder: styles.placeholder,
-            }}
+          <SelectList
+            setSelected={onChange}
+            data={selectListData}
+            placeholder={prompt}
+            defaultOption={selectListData.find((item) => item.key === value)}
+            boxStyles={styles.selectListBoxStyle}
+            dropdownStyles={styles.selectListDropdownStyle}
           />
         </View>
       );
     };
+    
     
          
   const InputCheck = ({ label,value,onChange}) => (
@@ -140,6 +139,21 @@ const styles = StyleSheet.create({
       },
       itemPickerPromptStyle:{
        color:'gray',    
+  },
+  selectListBoxStyle: {
+    height: 50,
+    borderWidth: 1,
+    borderColor: "lightgray",
+    borderRadius: 5,
+    paddingHorizontal: 10,
+    justifyContent: "center",
+    backgroundColor: "white",
+  },
+  selectListDropdownStyle: {
+    borderRadius: 5,
+    backgroundColor: "white",
+    borderWidth: 1,
+    borderColor: "lightgray",
   },
 });
 
