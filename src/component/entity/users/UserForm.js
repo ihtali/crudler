@@ -18,11 +18,9 @@ const defaultUser = {
 
 const UserForm = ({ originalUser, onSubmit, onCancel }) => {
   // Initializations ---------------------
-
-  defaultUser.UserImageURL = "https://images.freeimages.com/images/small-previews/cf5/cellphone-1313194.jpg";
-
   const yearsEndpoint = 'https://softwarehub.uk/unibase/api/years';
   const userTypesEndpoint = 'https://softwarehub.uk/unibase/api/usertypes';
+  defaultUser.UserImageURL = "https://images.freeimages.com/images/small-previews/cf5/cellphone-1313194.jpg";
 
   // State -------------------------------
   const [user, setUser] = useState(originalUser || defaultUser);
@@ -39,21 +37,27 @@ const UserForm = ({ originalUser, onSubmit, onCancel }) => {
     label: year.YearName,
   }));
 
-const UserLEVEL = [
-    { value: 0, label: '0'},
-    { value: 3, label: '3' },
-    { value: 4, label: '4' },
-    { value: 5, label: '5' },
-    { value: 6, label: '6' },
-    { value: 7, label: '7' },
-  ];
-  
   const userTypeOptions = userTypes.map((type) => ({
     value: type.UsertypeID,
     label: type.UsertypeName,
   }));
 
-  // View --------------------------------
+const UserLEVEL = [
+    { value: 0, label: '0 (Tutor)'},
+    { value: 3, label: "3 (Foundation Year)" },
+    { value: 4, label: "4 (First Year)" },
+    { value: 5, label: "5 (Second year)" },
+    { value: 6, label: "6 (Final Year)" },
+    { value: 7, label: "7 (Masters)" },
+  ];
+
+  const UserRegister = [
+    { value: 0, label: 'Not Registered' },
+    { value: 1, label: 'Registered' },
+
+  ];
+  
+/// View --------------------------------
   const submitLabel = originalUser ? 'Modify' : 'Add';
   const submitIcon = originalUser ? <Icons.Edit /> : <Icons.Add />;
 
@@ -108,11 +112,12 @@ const UserLEVEL = [
         options={UserLEVEL}
       />
 
-      <Form.InputCheck
+      <Form.InputSelect
         label="User Registered"
         value={user.UserRegistered}
         onChange={(value) => handleChange('UserRegistered', value)}
-      />
+        options={UserRegister}
+ />
 
       <Form.InputText
         label="User Image URL"
