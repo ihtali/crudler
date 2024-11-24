@@ -1,11 +1,9 @@
 import { KeyboardAvoidingView,ScrollView,TextInput, StyleSheet, Text, View } from 'react-native';
-//import RNPickerSelect from "react-native-picker-select";
 import { SelectList } from "react-native-dropdown-select-list";
 
 
 import {Button,ButtonTray} from './Button.js';
 import Icons from './Icons.js';
-import { Switch } from 'react-native-gesture-handler';
 
 
 const Form = ({children,onSubmit,onCancel ,submitLabel,submitIcon}) => {
@@ -17,14 +15,11 @@ return (
     <KeyboardAvoidingView style={styles.formContainer}>
     <ScrollView contentContainerStyle={styles.formItems}>  
      {children}
-     </ScrollView>   
-     
-     <ButtonTray>
-      <Button label={submitLabel} icon={submitIcon} onClick={onSubmit}/>
-      <Button label="Cancel" icon={<Icons.Cancel />}onClick={onCancel}/>
-
-      </ButtonTray>
-
+    </ScrollView>   
+    <ButtonTray>
+    <Button label={submitLabel} icon={submitIcon} onClick={onSubmit}/>
+    <Button label="Cancel" icon={<Icons.Cancel />}onClick={onCancel}/>
+    </ButtonTray>
     </KeyboardAvoidingView>
 );
 };
@@ -67,95 +62,52 @@ const InputText = ({label,value,onChange})  => {
       );
     };
     
-    
-         
-  const InputCheck = ({ label,value,onChange}) => (
-    <View style={styles.item}>
-    <Text style={styles.itemLabel}>{label}</Text>
-    <Switch
-    value={value}
-    onValueChange={onChange}
-    trackColor={{false: "black", true: " black" }}
-    thumbColor={value ? "white " : "white " }
-    />
-
-    </View>
-  )
-       
 
 // Compose Component
 Form.InputText= InputText;
 Form.InputSelect= InputSelect;
-Form.InputCheck= InputCheck;
 
 // Styles
-
 const styles = StyleSheet.create({
-    inputIOS: {
-        height: 50,
-        borderWidth: 1,
-        borderColor: "lightgray",
-        borderRadius: 5,
-        paddingLeft: 10,
-        marginBottom: 10,
-      },
-      inputAndroid: {
-        height: 50,
-        borderWidth: 1,
-        borderColor: "lightgray",
-        borderRadius: 5,
-        paddingLeft: 10,
-        marginBottom: 10,
-      },
-      placeholder: {
-        color: 'gray',
-        textAlign:'center',
-      },
-    formContainer:{
-        gap:10,
+    formContainer: {
+      gap: 10,
     },
-    formItems:{
-        gap:5,
+    formItems: {
+      gap: 5,
     },
+    itemLabel: {
+      color: 'grey',
+      fontSize: 16,
+      marginBottom: 5,
+    },
+    itemTextInput: {
+      height: 50,
+      paddingLeft: 10,
+      fontSize: 16,
+      backgroundColor: 'white',
+      borderRadius: 7,
+      borderWidth: 1,
+      borderColor: 'lightgrey',
+    },
+    selectListBoxStyle: {
+      height: 50,
+      borderWidth: 1,
+      borderColor: 'lightgray',
+      borderRadius: 5,
+      paddingHorizontal: 10,
+      justifyContent: 'center',
+      backgroundColor: 'white',
+    },
+    selectListDropdownStyle: {
+      borderRadius: 5,
+      backgroundColor: 'white',
+      borderWidth: 1,
+      borderColor: 'lightgray',
+    },
+  });
+  
 
-    itemLabel:{
-        color:'grey',
-        fontSize:16,
-        marginBottom:5,
-      },
-      itemTextInput:{
-        height:50,
-        paddingLeft:10,
-        fontSize:16,
-        backgroundColor:'white',
-        borderRadius:7,
-        borderWidth:1,
-        borderColor:'lightgrey',
-    
-      },
-      itemPickerStyle: {
-        height: 50,
-        backgroundColor: 'whitesmoke',
-      },
-      itemPickerPromptStyle:{
-       color:'gray',    
-  },
-  selectListBoxStyle: {
-    height: 50,
-    borderWidth: 1,
-    borderColor: "lightgray",
-    borderRadius: 5,
-    paddingHorizontal: 10,
-    justifyContent: "center",
-    backgroundColor: "white",
-  },
-  selectListDropdownStyle: {
-    borderRadius: 5,
-    backgroundColor: "white",
-    borderWidth: 1,
-    borderColor: "lightgray",
-  },
-});
+  export default Form;
+  
 
 
-export default Form;
