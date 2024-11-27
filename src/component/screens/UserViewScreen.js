@@ -3,7 +3,8 @@ import Screen from "../layout/Screen";
 import UserView from "../entity/users/UserView";
 
 const UserViewScreen =({navigation,route}) => {
-
+    
+//// Initializations -------------------------
 const {user,onDelete,onModify }= route.params;
 ////handler
 const gotoUserScreen =() => navigation.navigate('UserModifyScreen',{user,onModify});
